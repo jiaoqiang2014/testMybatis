@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace是命名空间，是mapper接口的全路径-->
+<mapper namespace="com.jd.testmybatis.dao.CustomCodeTemplateMapper">
+
+    <resultMap id="ResultMap" type="com.jd.testmybatis.entity.CustomCodeTemplateInfo">
+        <id column="style_id" property="styleId" jdbcType="VARCHAR"/>
+        <result column="style_name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="com.jd.testmybatis.entity.CustomCodeTemplateInfo">
+        INSERT INTO
+            babel_collect_template_style_info
+            (style_id, style_name)
+        VALUES
+            (#{styleId}, #{name})
+    </insert>
+
+    <select id="selectAll" resultMap="ResultMap">
+        SELECT
+            *
+        FROM
+            babel_collect_template_style_info
+    </select>
+
+    <update id="updateCollectTemplateStyleInfo" parameterType="java.util.HashMap">
+        UPDATE
+            babel_collect_template_style_info
+        SET
+            <if test="name != null"> style_name = #{name}</if>,
+            <if test="styleId != null"> style_id = #{styleId} </if>
+        WHERE
+            id = #{id}
+    </update>
+
+</mapper>
